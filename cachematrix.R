@@ -2,6 +2,8 @@
 ## functions do
 
 ## Write a short comment describing this function
+#this function implements a hypotetical matrix that will be used in the next function
+
 
 makeCacheMatrix <- function(x = matrix()) {
     m <- NULL
@@ -10,9 +12,11 @@ makeCacheMatrix <- function(x = matrix()) {
       m <<- NULL
     }
     get <- function() x
-    setInverter <- function(solve) m <<- solve
+    setInverter <- function(Inverter) m <<- Inverter
     getInverter <- function() m
     list(set = set, get = get,
+         setMatrix = setMatrix,
+         getMatrix = getMatrix,
          setInverter = setInverter,
          getInverter = getInverter)
     
@@ -20,7 +24,8 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Write a short comment describing this function
-
+##This function gets a matrix and compute its inverse
+##It's assumed that the matrix is squared AND its determinant is different than zero
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x',
   m <- x$getInverter()
@@ -28,7 +33,7 @@ cacheSolve <- function(x, ...) {
     message("getting cached data")
     return(m)
   }
-  data <- x$get()
+  data <- x$getMatrix()
   m <- solve(data, ...)
   x$setInverter(m)
   m
